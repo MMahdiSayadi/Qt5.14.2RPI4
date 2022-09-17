@@ -118,7 +118,7 @@ first make qt folder and then make the qmake in it.
 ```
 mkdir qt5build
 cd qt5build/../qt-everywhere-src-5.15.2/configure -opengl es2 -device linux-rasp-pi4-v3d-g++ -device-option CROSS_COMPILE=/opt/qt5pi/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- -sysroot /opt/qt5pi/sysroot -prefix /usr/local/qt5pi -opensource -confirm-license -skip qtscript -skip qtwayland -skip qtdatavis3d -nomake examples -make libs -pkg-config -no-use-gold-linker -v
-make -j8
+make -j8   // it take about the 1 hour for me
 make install
 cd /opt/qt5pi/
 ```
