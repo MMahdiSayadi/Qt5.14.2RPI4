@@ -5,6 +5,14 @@ in this project the host and target connect to eatch other using SSH over wifi:<
 > host ip: 192.168.1.112. and hostname: `mahdidesk` <br />
 > target ip: 192.168.24.13, and targetname: `pi`
 
+# Install Raspbian 
+Download the raspbian and install it using balena eatcher
+```
+wget https://downloads.raspberrypi.org/raspbian/images/raspbian-2020-02-14/2020-02-13-raspbian-buster.zip
+```
+go to the preferences and make below changes into the os:
+
+
 ## 0. open Target command
 
 ### 0.1 uncomment the source page download 
@@ -41,14 +49,6 @@ sudo apt-get install libxss-dev libxtst-dev libpci-dev libcap-dev libsrtp0-dev l
 sudo mkdir /usr/local/qt5pi
 sudo chown pi:pi /usr/local/qt5pi
 ```
-
-# Install Raspbian 
-Download the raspbian and install it using balena eatcher
-```
-wget https://downloads.raspberrypi.org/raspbian/images/raspbian-2020-02-14/2020-02-13-raspbian-buster.zip
-```
-go to the preferences and make below changes into the os:
-
 
 ## 1. Host libs
 ```
