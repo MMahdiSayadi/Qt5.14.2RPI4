@@ -5,8 +5,42 @@ in this project the host and target connect to eatch other using SSH over wifi:<
 > host ip: 192.168.1.112. and hostname: `mahdidesk` <br />
 > target ip: 192.168.24.13, and targetname: `pi`
 
+## 0. open Target command
 
+### 0.1 uncomment the source page download 
+```
+sudo vi /etc/apt/sources.list
+```
 
+### 0.2 run the following commands
+```
+sudo apt update
+sudo apt full-upgrade
+sudo reboot
+sudo rpi-update
+sudo reboot
+
+sudo apt-get build-dep qt5-qmake
+sudo apt-get build-dep libqt5webengine-data
+
+sudo apt-get install libboost1.58-all-dev libudev-dev libinput-dev libts-dev libmtdev-dev libjpeg-dev libfontconfig1-dev 
+sudo apt-get install libssl-dev libdbus-1-dev libglib2.0-dev libxkbcommon-dev libegl1-mesa-dev libgbm-dev libgles2-mesa-dev mesa-common-dev
+sudo apt-get install libasound2-dev libpulse-dev gstreamer1.0-omx libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  gstreamer1.0-alsa
+sudo apt-get install libvpx-dev libsrtp0-dev libsnappy-dev libnss3-dev
+sudo apt-get install "^libxcb.*"
+sudo apt-get install flex bison libxslt-dev ruby gperf libbz2-dev libcups2-dev libatkmm-1.6-dev libxi6 libxcomposite1
+sudo apt-get install libfreetype6-dev libicu-dev libsqlite3-dev libxslt1-dev libavcodec-dev libavformat-dev libswscale-dev 
+sudo apt-get install libgstreamer0.10-dev gstreamer-tools libraspberrypi-dev libx11-dev libglib2.0-dev 
+sudo apt-get install freetds-dev libsqlite0-dev libpq-dev libiodbc2-dev firebird-dev libjpeg9-dev libgst-dev libxext-dev libxcb1 libxcb1-dev libx11-xcb1 
+sudo apt-get install libx11-xcb-dev libxcb-keysyms1 libxcb-keysyms1-dev libxcb-image0 libxcb-image0-dev libxcb-shm0 libxcb-shm0-dev libxcb-icccm4 libxcb-icccm4-dev 
+sudo apt-get install libxcb-sync1 libxcb-sync-dev libxcb-render-util0 libxcb-render-util0-dev libxcb-xfixes0-dev libxrender-dev libxcb-shape0-dev libxcb-randr0-dev 
+sudo apt-get install libxcb-glx0-dev libxi-dev libdrm-dev libssl-dev libxcb-xinerama0 libxcb-xinerama0-dev
+sudo apt-get install libatspi-dev libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libfontconfig1-dev 
+sudo apt-get install libxss-dev libxtst-dev libpci-dev libcap-dev libsrtp0-dev libxrandr-dev libnss3-dev libdirectfb-dev libaudio-dev
+
+sudo mkdir /usr/local/qt5pi
+sudo chown pi:pi /usr/local/qt5pi
+```
 
 # Install Raspbian 
 Download the raspbian and install it using balena eatcher
@@ -68,6 +102,35 @@ wget https://raw.githubusercontent.com/riscv/riscv-poky/master/scripts/sysroot-r
 chmod +x sysroot-relativelinks.py 
 ./sysroot-relativelinks.py sysroot
 ```
+## 5. sync again the host and target
+```
+ping 192.168.24.13
+rsync -avz pi@192.168.24.13:/lib sysroot
+rsync -avz pi@192.168.24.13:/usr/include sysroot/usr
+rsync -avz pi@192.168.24.13:/lib sysroot
+rsync -avz pi@192.168.24.13:/usr/lib sysroot/usr
+rsync -avz pi@192.168.24.13:/opt/vc sysroot/opt
+./sysroot-relativelinks.py sysroot
+```
+
+## 6. make Qt developement folder
+first make qt folder and then make the qmake in it.
+```
+mkdir qt5build
+cd qt5build/../qt-everywhere-src-5.15.2/configure -opengl es2 -device linux-rasp-pi4-v3d-g++ -device-option CROSS_COMPILE=/opt/qt5pi/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- -sysroot /opt/qt5pi/sysroot -prefix /usr/local/qt5pi -opensource -confirm-license -skip qtscript -skip qtwayland -skip qtdatavis3d -nomake examples -make libs -pkg-config -no-use-gold-linker -v
+make -j8
+make install
+cd /opt/qt5pi/
+```
+## 7. sync generated folder to target 
+```
+rsync -avz sysroot/usr/local/qt5pi pi@192.168.24.13:/usr/local
+```
+
+
+
+
+
 
 
 
