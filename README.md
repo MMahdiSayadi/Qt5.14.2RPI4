@@ -1,8 +1,8 @@
 # Qt5.14.2RPI4
 make Rpi4 ready to code with Qt.14.2
 
-in this project the host and target connect to eatch other using SSH over wifi:
-> host ip: 192.168.1.112
+in this project the host and target connect to eatch other using SSH over wifi:<br />
+> host ip: 192.168.1.112 <br />
 > target ip: 192.168.24.13
 
 
