@@ -82,6 +82,7 @@ cat qt-everywhere-src-5.15.2/qtbase/mkspecs/linux-arm-gnueabi-g++/qmake.conf
 ```
 ## 4. sync target with host (using rsync)
 ```
+sudo bash
 ping 192.168.24.13
 rsync -avz pi@192.168.24.13:/lib sysroot
 rsync -avz pi@192.168.24.13:/usr/include sysroot/usr
