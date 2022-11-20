@@ -5,6 +5,9 @@ in this project the host and target connect to eatch other using SSH over wifi:<
 > host ip: 192.168.1.112. and hostname: `mahdidesk` <br />
 > target ip: 192.168.24.13, and targetname: `pi`
 
+>> Pay close attention that this repo only work for raspberry pi 4B 4GiB
+
+
 # Install Raspbian 
 Download the raspbian and install it using balena eatcher
 ```
