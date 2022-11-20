@@ -80,11 +80,10 @@ cat qt-everywhere-src-5.15.2/qtbase/mkspecs/linux-arm-gnueabi-g++/qmake.conf
 ## 4. sync target with host (using rsync)
 ```
 ping 192.168.24.13
-rsync -avz pi@192.168.24.13:/lib/ sysroot
-rsync -avz pi@192.168.24.13:/usr//include sysroot/usr
-rsync -avz pi@192.168.24.13:/lib/ sysroot
-rsync -avz pi@192.168.24.13:/usr/lib/ sysroot/usr
-rsync -avz pi@192.168.24.13:/opt/vc/ sysroot/opt
+rsync -avz pi@192.168.24.13:/lib sysroot
+rsync -avz pi@192.168.24.13:/usr/include sysroot/usr
+rsync -avz pi@192.168.24.13:/usr/lib sysroot/usr
+rsync -avz pi@192.168.24.13:/opt/vc sysroot/opt
 ```
 
 ## 5. Link the Required libs
@@ -94,8 +93,6 @@ ln -s sysroot/opt/vc/lib/libEGL.so sysroot/usr/lib/arm-linux-gnueabihf/libEGL.so
 mv sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0 sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0_backup
 ln -s sysroot/opt/vc/lib/libGLESv2.so sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0
 mv sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0 sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0_backup
-ls sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0
-ln -s sysroot/opt/vc/lib/libGLESv2.so sysroot/usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.1.0
 ln -s sysroot/opt/vc/lib/libEGL.so sysroot/opt/vc/lib/libEGL.so.1
 ln -s sysroot/opt/vc/lib/libGLESv2.so sysroot/opt/vc/lib/libGLESv2.so.2
 wget https://raw.githubusercontent.com/riscv/riscv-poky/master/scripts/sysroot-relativelinks.py
@@ -104,13 +101,10 @@ chmod +x sysroot-relativelinks.py
 ```
 ## 5. sync again the host and target
 ```
-ping 192.168.24.13
 rsync -avz pi@192.168.24.13:/lib sysroot
 rsync -avz pi@192.168.24.13:/usr/include sysroot/usr
-rsync -avz pi@192.168.24.13:/lib sysroot
 rsync -avz pi@192.168.24.13:/usr/lib sysroot/usr
 rsync -avz pi@192.168.24.13:/opt/vc sysroot/opt
-./sysroot-relativelinks.py sysroot
 ```
 
 ## 6. make Qt developement folder
